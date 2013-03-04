@@ -1,0 +1,18 @@
+Changes in 0.5.5
+----------------
+
+*  postfix: handle 'corrupt' queue
+*  added sort by from/to/subject
+
+Changes in 0.5.5.1
+------------------
+
+*  hotfix for a stupid typo that prevented postfix2 from working
+
+Changes in 0.5.6
+----------------
+
+*  reverse sorting
+*  much work on socket backend and the spfqueue frontend, now they
+   are quite working
+*  code cleanup

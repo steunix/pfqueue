@@ -1,0 +1,80 @@
+.\"                              hey, Emacs:   -*- nroff -*-
+.\" pfqueue is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; see the file COPYING.  If not, write to
+.\" the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH PFQUEUE.CONF 5 "November 19, 2009"
+.SH NAME
+pfqueue.conf \- pfqueue configuration file
+
+.SH FULL PATH
+/etc/pfqueue.conf or ~/.pfqueue
+
+.SH DESCRIPTION
+\fBpfqueue\fP can be configured storing its option in configuration files.
+At startup, if /etc/pfqueue.conf is present it is read and options
+are set accordingly; then, if a .pfqueue file is present in user's home
+directory, it is read and options are set accordingly, overriding those
+stored in /etc/pfqueue.conf.
+.br
+Note that the resulting settings are overridden by command line options.
+
+.SH SYNTAX
+An option can be set using the "option=value" syntax. Any line starting with
+a hash sign ("#") will be discarded.
+
+.SH OPTIONS
+.TP
+.B backends_path=<path>
+Backends absolute path; same as -B option in command line.
+.TP
+.B backend_name=<string>
+Default backend to use; same as -b option.
+.TP
+.B frontends_path=<path>
+Frontend absolute path; same as -F option in command line.
+.TP
+.B frontend_name=<string>
+Default backend to use; same as -f option.
+.TP
+.B mta_config=<path_or_file>
+Use a custom MTA configuration; some MTA need a directory, others a file; same as -c.
+.TP
+.B mta_bin=<path>
+Path to MTA executables; same as -p.
+.TP
+.B max_messages=<number>
+Maximum number shown in a queue; same as -m.
+.TP
+.B use_envelope=<yes/no>
+Start reading from/to fields from envelop; same as -e if set to yes.
+.TP
+.B default_queue=<number>
+Use this queue at startup; see -q option for details.
+.TP
+.B scan_limit=<number>
+Scan queue for <number> seconds at max; same as -l.
+.TP
+.B scan_delay=<number>
+Seconds between queue scans; same as -d.
+.TP
+.B autorefresh=<number>
+Seconds between screen refreshes; same as -s.
+.TP
+.B use_colors=<yes/no>
+Use colors; same as -n.
+.TP
+.B remote_host=<host>
+Host to connect to, when using socket backend; same as -r.
+.SH AUTHOR
+Stefano Rivoir <s.rivoir@gts.it>

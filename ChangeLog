@@ -1,0 +1,723 @@
+2009-11-18  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* allaround: shows backend location on help window
+	* allaround: interface (ncurses/socket) detached from main
+	  executable, using same library loading as backend; so far only
+	  ncurses has been ported; such a change deserves...
+	* configure.in: bump to 0.6.0
+
+2009-11-17  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/*: Backend API v4, with set_backend_path function
+	* fe_ncurses.c: When aborting, display error number at least
+	* libpfq/*: Conform to backend API v4, store path to backend lib
+	* libpfq/*: Store where config has been read from, if any
+	* fe_ncurses.c: Show where config has been read from, if any
+	* libpfq/pfqlib.c, pfqlib.h: be verbose about loading backends;
+	  minimum backend API version stored in .h
+	
+2007-05-07  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* configure.in: bump to 0.5.7
+	* libpfq/pfqlib.c: suspend digging while sorting
+
+2007-02-04  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqlib.h, libpfq/pfqlib.c: use #defines for queue status
+	* libpfq/pfqlib_priv.h: remove useless things
+	* libpfq/pfqlib.c: move thread and mutex to context
+	* backends/pfq_socket.c: send message from/to/subject
+	* fe_socket.c: update socket backend, make it functional again; add
+	  ability to show status, path and body
+
+2007-02-03  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqlib.h, libpfq/pfqlib.c: add reverse sorting
+	* fe_ncurses.c: add reverse sorting
+	* fe_ncurses.c: fix win corruption in case of '.' key without
+	  the body window
+
+2007-02-01  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* configure.in: bump to 0.5.5.1
+	* backends/pfq_postfix2.c: dumb typo...
+	* Version 0.5.5.1
+
+2007-02-01  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.5.5
+
+2007-01-25  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* libpfq/pfqlib.c: initialize sort_field
+
+2007-01-24  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/pfq_postfix2.c: handle 'corrupt' queue; check input
+	  in pfb_set_queue;
+	* backends/pfq_exim.c: check input in pfb_set_queue;
+	* pfqlib.h, libpfq/pfqlib.c: pfql_set_queue now returns an int
+	* fe_ncurses.c: check error code when changing queue
+
+2007-01-20  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqlib.h, libpfq/pfqlib.c, fe_ncurses.c: added sort capability
+
+2007-01-19  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* configure.in: bump to version 0.5.5
+	* pfqlib.h: add sort field to context status
+
+2007-01-19  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.5.4
+
+2007-01-18  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* libpfq/pfqlib.c: correctly free() resources in case of failed
+	  malloc; closes debian bug #401829 and #353743
+	* fe_ncurses.c: remove stupid bug in msg_list malloc, which
+	  actually malloc'ed less than needed
+
+2006-10-05  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* configure.in: bump to 0.5.4
+	* pfqlib.h: add sort function prototype and defines
+
+2006-09-26  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.1, pfqueue.conf.5, fe_ncurses.c, fe_socket.c: last
+	  cosmetics updates
+	* Version 0.5.3
+
+2006-04-24  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.h: update
+
+2006-03-02  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.c: use '.' and ',' keys to scroll body window
+	* fe_ncurses.c: ENTER key show message body in its own window if
+	  this is visible, otherwise it opens another; 'S' and 's' key
+	  always open another.
+	* pfqueue.1: document new keys behaviour
+
+2006-02-28  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.{h,c}: display message body in its own window
+	* fe_ncurses.c: '.' key for marking the start of the block has been
+	  changed with 'm'
+	* fe_ncurses.c: handle body window
+
+2006-02-27  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.c: body can be shown in any window
+
+2006-02-25  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.{c,h}: '<' and '>' keys to resize details window
+	* pfqueue.1, pfqueue.h: explain '<'/'>' keys
+	  
+2006-02-24  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.c, fe_socket.c: added -d option to handle delay in
+	  seconds between queue scans
+	* pfqueue.1, pfqueue.conf.5: updated
+
+2006-02-23  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqconfig.{c,h}: handle configuration files
+	* pfqueue.conf.5: added man page for configuration file
+	* configure.in: bump to 0.5.3
+
+2006-02-20  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqlib.h, libpfq/pfqlib.c: library now handles a context, so that 
+	  multiple backends can be loaded at once
+	* fe_socket.c, fe_socket.h: use libpfq context structure
+
+2006-02-02  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.c: options 'c' and 'p' were lost...
+	* libpfq/pfqlib.c: pass bin path and config to backend
+	* backends/pfq_exim.c: don't ignore bin path passed by config when
+	  trying exim4
+	* Version 0.5.2
+
+2006-02-01  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* configure.in: bump to 0.5.2
+	* ltmain.sh, libtool: new version
+	* libpfq/pfqlib: add soname (0.0.0) to library search
+	* fe_ncurses.c, fe_socket.c: quit if run by non-root
+	* Makefile.am: don't distribute debian subdir anymore, pfqueue is
+	  being added to official Debian
+	* fe_ncuses.c: fix return values
+	* pfqueue.1: updated
+
+2006-01-23  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* configure.in: Solaris(tm) needs -lsocket
+
+2006-01-18  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* libpfq/pfqlib.c: use regexp, since regfree may give segfaults on
+	  unused regexp_t
+	* fe_socket.c, fe_ncurses.c: don't limit the max number of messages
+	  to 2048
+
+2006-01-11  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.5.1
+
+2005-12-05  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* libpfq/pfqlib.c: avoid updating last-changed time when messages
+	  are not updated yet
+	* libpfq/pfqlib.c: don't send errors to stderr, use syslog instead
+	* fe_ncurses.c: detect also 10 ASCII char for 'ENTER' key
+	* fe_ncurses.c: notify to stderr when lib cannot be started
+	* fe_ncurses.c: correctly clean previous row if related msg does
+	  not exist anymore
+	* libpfq/pfq_*.c: don't send errors to stderr, use syslog instead
+
+2005-11-24  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* libpfq/pfqlib.c: initialize NUMTAG at 0
+	* libpfq/pfqlib.c: wait and clean thread before exiting.
+	  This should fix the segfault at exit reported in many 
+	  different installations (never in mine).
+
+2005-10-17  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Makefile.am: TCP backend/frontend are not ready yet, set
+	  ncurses backend executable name to 'pfqueue' again
+	* pfqueue.1: updated
+	* libpfq/pfqlib.c: check backend return code in retr_body
+	* fe_ncurses.c: check lib return code in retr_body
+	* libpfq/pfqlib.c: reset tag flag when invalidating a msg
+
+2005-10-13  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.c: change buffer length for message body to 20Kb
+	* pfqlib.h, libpfq/pfqlib.c: standardize some return codes
+	* fe_ncurses.c: ensure every pfql_msg_at is checked against NULL
+
+2005-09-11  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.c: update queue even if last update time is equal
+	  to last change in queue: time() resolution is one second...;
+	  set actual time when finished updating
+	* fe_ncurses.c: pfqlib has no 'current' message anymore
+	* libpfq/pfqlib.c: remove useless 'current' message
+	* backends/pfq_socket.c: check for cache flag before querying
+	  headers again; make wr_socket return the correct value
+
+2005-09-04  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_socket.{c,h}: initial support for sockets
+
+2005-09-01  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Makefile.am, configure.in: added libpfq subdir; ncurses
+	  frontend is now 'npfqueue'
+	* libpfq/: new
+
+2005-08-30  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/*.c: use defines const for from/to errors
+	* backends/pfq_postfix2.c: bogus initialization
+	* fe_ncurses.c: accept CANC/DEL (del msg) key, ENTER key (show
+	  msg) and SPACE (tag)
+	* fe_ncurses.c: fix -v output
+	* Version 0.5.0
+
+2005-08-29  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.c, pfqlib.h, pfqlib.c: cleanup; pfqlib now stores
+	  and returns when the queue last changed
+
+2005-08-12  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqlib.c, fe_ncurses.c: bring back search functionalities
+	* backends/pfq_exim.c: check hcached in retr_headers
+	* debian/control: add libc6-dev to build-depends
+	* fe_ncurses.c: call fe_close on exit
+	* pfqlib.c: init pointers to NULL, free them only if allocated
+
+2005-08-09  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* fe_ncurses.c: bring back confirm window
+
+2005-08-08  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/pfq_*.c: use correct return values
+	* pfqlib.c, fe_ncurses.c: test return values properly
+	* pfqlib.c, pfqlib.h, fe_ncurses.c: added auto-work-on-tagged
+	* fe_ncurses.c: add color to regexp win; fix a crash
+
+2005-08-01  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* all around: big cleanup, isolate frontend stuff from basic queue
+	  interaction function
+	* configure.in: version 0.5.0, now that pfqlib is a standalone
+	  library
+	* backends/pfq_*.c: don't receive argc/argv for be setup, use a
+	  struct instead
+
+2005-07-29  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: removed unused vars; show api version in help window
+	* pfqueue.c: fix search&tag
+
+2005-07-28  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: remove useless tests on file existance
+
+2005-07-23  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/*.c, pfqueue.c: backends export their API version, so
+	  pfqueue can check it and avoid to use wrong types of call
+	  (and crash, often)
+
+2005-07-15  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/pfq_exim.c: for 'changed' field, id must be matched
+	  with d_name excluding exim's postfix
+
+2005-07-15  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: move next when tagging (closes sf RFE #1235711)
+	* pfqueue.c: handle another queue to hold display messages; this
+	  is mandatory, because action must be performed by msg ID, not
+	  by the message ordinal position in the queue: these two may 
+	  differ in case of a fast-changing queue, where the delay between 
+	  two list refreshes cause the shown list to be not up-to-date
+	  anymore.
+	* backends/*: actions require msg ID, not an integer
+	* configure.in: switch to 0.4.3
+
+2005-07-04  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.4.2
+
+2005-07-01  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: use proper vertical char in msg_cat
+	* pfqueue.c: reset cache for new messages
+
+2005-06-29  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c, backends/pfq_*.c: status of message must be read
+	  separately from headers, because it's needed only by active
+	  message; for the rest of shown messages on the list, it's only
+	  wasted time
+	* pfqmessage.h: cache for header and for status are handled
+	  separately
+	* pfqueue.c: force retr_header in msg_show
+	* all around: pfqueue and backends use different struct for
+	  messages; backends only care about msg ID and if it is "new" in
+	  its position, nothing else
+
+2005-06-27  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: repaint queue after displaying help or message
+	  body
+	* pfqueue.c: use own window for header
+	* pfqueue.c: suspend digging when showing help or message body
+	* pfqueue.c: change the way operational status (ask confirm,
+	  commands on tagged, scan disable) are displayed
+
+2005-06-23  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: queue_show is now called only when necessary; a
+	  cursor movement only causes previous and current message to
+	  be rapainted
+
+2005-06-23  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/pfq_exim.c: clear all locals vars on _init
+	* pfqueue.c: optimize queue_show, don't need to loop within
+	  all visible rows
+
+2005-06-22  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: ignore SIGPIPE signal; this may be triggered by
+	  popen() implementations that are scaread when child exits
+	  without the parent being "informed" (solaris, for example)
+	* pfqueue.c: fix a segfault (bline "string")
+	* backends/pfq_service.c: use raw read for freadl; don't
+	  memset() input buffer, there's no need to do it
+
+2005-06-20  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: alloc COLS for blank lines, not COLS-1
+	* backends/pfq_*: move tests on file into pfq_service.c
+	* configure.in, backends/pfq_service.c: dirent->d_type is not
+	  supported in some systems; use only stat() in this case
+
+2005-06-18  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: use colors (uhm, it's 2005 after all :) )
+	* pfqueue.c: add -n option and + key to toggle the use of
+	  colors; document them in -h and help()
+	* pfqueue.1: updated
+
+2005-06-17  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.4.1
+
+2005-06-16  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: (queue_show) don't let 'To' field go beyond window
+	  right border
+
+2005-06-14  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/pfq_*.c: pfb_message_requeue did a release instead...
+	* backends/pfq_backend.h: fixed a typo
+	* configure.in: don't need -lm
+
+2005-06-13  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: use pfbe_id and pfbe_version in help screen
+	* backends/pfq_*.c: remove 'backend' from id string
+
+2005-06-10  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Makefile.am: pass $libdir as PFBEDIR
+	* pfqueue.c: look for backends in PFBEDIR, if a path is not
+	  given; it did not find backends when pfqueue was configured
+	  with --libdir switch
+	* pfqueue.c, backends/pfq_*.c, backends/pfq_backend.h: backends
+	  store body messages in a plain buffer, pfqueue takes care of
+	  splitting it into lines; this simplifies things and solve a
+	  compilation error with gcc4 for an ugly char[][]
+	* pfqueue.c: missing dlclose
+	* configure.in: changed version to 0.4.1
+	* backends/pfq_exim.c: even if the message is cached, it must
+	  be read in order to get the status
+	* backends/pfq_exim.c: redirect output of message actions to
+	  /dev/null
+
+2005-06-09  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* backends/pfq_exim.c: fill status on message
+	* backends/pfq_exim.c: exim version 4 is exim4, not exim. So
+	  use it if exim command is not found.
+	* debian/control: depends on postfix OR exim OR exim4
+	* Version 0.4.0
+
+2005-06-08  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.1: update manual page with all informations
+	* pfqueue.c: added -B option
+	* backends/pfq_*.c: fixed a lot of compilation warnings
+	* backends/pfq_exim.c: queue_hasid was called with wrong id,
+	  so messages were always uncached
+
+2005-06-01  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* all: almost everything has changed, give separate libraries
+	  the ability of reading queues for different MTAs; too many
+	  changes to be tracked on by one
+
+2005-05-20  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: gcc-2.95 did not compile for a decl in the middle
+	  of a function (thanks to Pav Lucistnik)
+
+2005-05-19  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: added key '-' to toggle queue scanning
+	* pfqueue.c: handle PgUp/Down keys in main window
+	* pfqueue.{c,h}: split help text in two pages, and show them
+	  accordingly
+	* Version 0.3.8
+
+2005-05-14  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: print error strings on stderr
+	* pfqueue.c, ncgui.{c,h}, pfregex.h: when specifing search
+	  string, f:, t:, e:, s: can be specified to limit search in
+	  respectively From, To, From or To, Subject fields
+	* *.h: reorganize a little bit
+	* configure.in: changed to 0.3.8
+
+2005-05-11  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.h: added globals
+	* pfqueue.c: added message mark: once a message is marked, the
+	  next tag will tag all messages between that and the marked
+	  one
+	* pfqueue.c: updated help
+	* pfqueue.1: updated
+	* Version 0.3.7
+
+2005-05-10  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: added 'c' key to toggle confirmation request
+	  for delete/hold/requeue
+	* pfqueue.c: always display number of tagged messages
+
+2005-04-22  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: added 'a' key to tag all messages (suggested by
+	  Peter Motykowski)
+	* pfqueue.c: when tagging message, first ensure that all
+	  messages are fetched (otherwise you can tag only what you
+	  see)
+	* pfqueue.c: search&tag did not increment tagged counter,
+	  resulting in ';' key not being functional
+	* Version 0.3.6
+
+2005-03-22  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.3.5
+
+2005-03-14  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfregex.h: add missing #include of sys/types.h
+	* pfqueue.c: in queue_show, honor the dig_limit too
+	* pfqueue.1: updated man with -l option
+
+2005-03-11  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: adjusted missing return values to new functions;
+	  some of them must return void;
+	* ncgui.h: missing proto
+	* pfqueue.c: added -l parameter, which limit the number of
+	  seconds the dig thread can run
+	* ncgui.c: disable echo after regexp prompt
+
+2005-03-07  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: search backward too
+	* pfqueue.h: update help
+	* pfqueue.c: search messages and tag them
+	* Version 0.3.4
+
+2005-03-04  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.{h,c}: posix regexp search
+	* configure.in: test on regcomp/regexec presence
+	* pfregex.h: added
+	* pfqueue.c: optimize cursor movements
+
+2005-03-03  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.{h,c}: updated help screen with missing keys
+	* configure.in: updated version to 0.3.4
+
+2005-02-22  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.3.3
+
+2005-02-21  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: during operation on tagged messages, the dig
+	  thread must be stopped, otherwise it changes the situation
+	  of the queue itself, thus resetting the tagged flag
+
+2005-02-17  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.3.2
+
+2005-02-15  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: add -q option to set the queue to start with
+	* pfqueue.c: missing pclose in msg_cat
+	* pfqueue.c: fixed a "flipping" effect (queue message count
+	  jumping from real number to 0 back and forgh) when using -m
+	  option
+
+2005-02-14  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: avoid to set cursor above the list too
+	* pfqueue.c: added version on help window
+	* pfqueue.c: when showing a message, don't scroll beyond the
+	  end
+	* pfqueue.c: when showing a message, make g/G/HOME/END keys
+	  work
+
+2005-02-10  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: don't update queue after showing a message; keep
+	  existing cursor position instead
+	* pfqueue.c: make PageUp/PageDown keys work while showing a
+	  message
+	* pfqueue.c: don't accept any action key if queue is empty
+	* pfqueue.c: move cursor on last message when list shrinks
+	* Makefile.am: include debian in extradist, so make distcheck
+	  can be used for tarballs
+	* Version 0.3.1
+
+2005-02-08  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* ncgui.c: "wanto" typo
+	* configure.in: changed to version 0.3.1
+	* pfqueue.{h,c}: define and use NULL instead of 0
+	* Makefile.am: add pfqueue.h in the sources
+
+2005-01-26  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.3.0
+
+2005-01-25  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: use a global to give config_path presence instead
+	  of checking strlen all the times
+	* pfqueue.c: use anonymous pointers to from/to string instead of
+	  pointless complicated if
+	* pfqueue.c: cache messages only if fields are retreived
+	* pfqueue.{h,c}: use a common string for the fields if message
+	  cannot be retrieved for any reason
+	* pfqueue.c: added -r option, to force postfix version when
+	  autodetect is not possible
+
+2005-01-14  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: in msg_cat, display as many characters in a row as
+	  the window can contain
+
+2005-01-14  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: msg_head used fread with a wrong size, and this may
+	  cause the from/to fields to be unshown
+	* pfqueue.h: #ifndef around TRUE/FALSE defines, to avoid compiler
+	  warnings
+
+2005-01-13  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: keys 'G' and 'g' can be used as alternatives for
+	  HOME/END
+	* pfqueue.c: dir digging is now a separate thread
+	* configure.in: changed version to 0.3.0
+	* configure.in: added tests for libpthread and libc_r
+	* pfqueue.c: queue_change must reset FIRSTMSG too
+	* pfqueue.1: updated manpage
+	* pfqueue.h: new
+	* pfqueue.c: split decl into .h
+	* pfqueue.c: show subject
+
+2005-01-12  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.2.1
+
+2005-01-11  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: in some fs (e.g. NFS) dirent d_type is not reliable;
+	  use stat, then (suggested by Thomas)
+	* pfqueue.1: updated
+
+2005-01-10  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: use a recursive function to dig directory (suggested
+	  by Thomas Linden); get rid of static buffers allocation for
+	  dir tree
+	* pfqueue.c: added 'show message' capabilities
+
+2005-01-07  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: make help window wait for a keypress
+	* ncgui.c: make confirm dialog wait for a keypress
+	* pfqueue.c: fill_list stored the wrong path in dirs[], so that
+	  scan in trees with more than 1 level did fail
+	* pfqueue.c: use -q option for postcat in msg_fetch
+	* configure.in: changed version to 0.2.1
+	* pfqueue.c: store full path in msg structure, so that msg_fileex
+	  can work again
+	* pfqueue.c: deferral cause did not work for tree with more than
+	  1 subdir
+
+2005-01-05  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* debian/control: added libncurses-dev to build deps
+	* debian/changelog: updated
+	* Version 0.2.0
+
+2005-01-03  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: added help screen
+	* pfqueue.c: options reading was a bit bogus, and config_path
+	  was not used in subsequent calls to postconf in main()
+	* pfqueue.c: Home and End keys are now working
+
+2004-12-30  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: bring back -m option
+
+2004-12-29  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: get rid of find/head, use internal dir scan instead;
+	  as side effect, now we can cope with hash_queue_depth > 1
+	* configure.in: changed version to 0.2.0, removed tests on find
+	  and head
+
+2004-12-28  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: parametrize postconf location
+	* pfqueue.c: don't need to be root to lauch pfqueue
+	* Version 0.1.4
+
+2004-12-27  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: keys for queues have changed, from 1 to 4, to avoid
+	  clashes with actions
+	* pfqueue.c: in win_resize, init bline _after_ initscr (COLS may not
+	  be correct before)
+	* pfqueue.c: when using head, use -n option for compatibility
+	* pfqueue.c: some sanity checks on parameters and popens
+
+2004-12-23  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* Version 0.1.3
+
+2004-12-22  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: the 'e' key toggles scan for From/To from envelope or
+	  headers
+	* pfqueue.c: behave differently, in some cases, depending on
+	  postfix version (i.e. deferral cause)
+	* pfqueue.c: -e option makes pfqueue read from envelope on startup
+	* pfqueue.c: use snprintf everywhere, instead of sprintf
+	* pfqueue.c: deferral cause could be non existent, for example when
+	  a message is held and then released
+
+2004-12-21  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: postfix configuration path is stored and used in
+	  postsuper commands (patch by Frank Scholz)
+	* Version 0.1.2
+
+2004-12-20  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: for the current msg, show the whole line reversed
+	* pfqueue.c: added capability to requeue the messages
+	* ncgui.c: modified the confirm request to be a bit more clear...
+	* pfqueue.c: use -h for postconf calls
+
+2004-12-18  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* configure.in: modified to check availability of -printf in find:
+	  FreeBSD does not not have it, and could not work
+	* pfqueue.c: behave differently depending on availability of -printf
+
+2004-12-17  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* ncgui.{c,h}: removed unused wnd_refresh function
+	* pfqueue.c: optimized screen update using wnoutrefresh
+	* pfqueue.c: added "To" in message list
+	* pfqueue.c: removed an useless window, simplified the interface
+	* pfqueue.c: use head program to cut out the output of find command
+	* configure.in, config.h.in: added checks for head program
+
+2004-12-16  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue.c: Read and honour command line options
+	* version 0.1.1
+
+2004-12-09  Stefano Rivoir  <s.rivoir@gts.it>
+
+	* pfqueue: initial version.
+

@@ -1,0 +1,53 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(pfqueue.c)
+
+dnl Every other copy of the package version number gets its value from here
+AM_INIT_AUTOMAKE(pfqueue, 0.6.0)
+
+dnl create a config.h file (Automake will add -DHAVE_CONFIG_H)
+AM_CONFIG_HEADER(config.h)
+
+AC_SUBST(VERSION)
+
+ISODATE=`date +%Y-%m-%d`
+AC_SUBST(ISODATE)
+
+AC_CANONICAL_HOST
+
+dnl Checks for programs.
+AC_PROG_INSTALL
+AC_PROG_CC
+AC_LIBTOOL_DLOPEN
+AC_PROG_LIBTOOL
+
+dnl Checks for libraries.
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(ncurses.h)
+AC_CHECK_HEADERS(regex.h)
+
+AC_CHECK_MEMBER([struct dirent.d_type],AC_DEFINE(HAVE_DIRENT_DTYPE,[],[Has dirent->d_type member]),,
+	[#include <dirent.h>])
+
+jm_CHECK_TYPE_STRUCT_UTIMBUF
+AC_HEADER_MAJOR
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+dnl Checks for library functions.
+AC_CHECK_LIB(ncurses,newwin)
+AC_CHECK_LIB(pthread,pthread_create)
+AC_CHECK_LIB(c_r,pthread_create)
+AC_CHECK_LIB(dl,dlopen)
+AC_CHECK_LIB(socket,accept)
+
+pkg_modules="libxml-2.0 >= 2.6.0"
+PKG_CHECK_MODULES(libxml2, [$pkg_modules])
+AC_SUBST(libxml2_CFLAGS)
+AC_SUBST(libxml2_LIBS)
+
+LIBS="$libxml2_LIBS $LIBS"
+CFLAGS="$libxml2_CFLAGS $CFLAGS"
+AC_OUTPUT(Makefile frontends/Makefile backends/Makefile libpfq/Makefile pfqueue.spec)

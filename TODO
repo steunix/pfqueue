@@ -1,0 +1,7 @@
+- queue_last_changed should be handled at backend level, not at library
+  level. This would prevent spfqueue/socket to continuously getting the
+  message ID list
+- exim: add and option to avoid backend to recurse directories
+- exim: handle move_frozen_messages; frozen are placed in Finput; in
+  this case, be should handle two different queues
+

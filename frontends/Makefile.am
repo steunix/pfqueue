@@ -1,0 +1,7 @@
+lib_LTLIBRARIES = libpfq_fencurses.la libpfq_fesocket.la
+
+libpfq_fencurses_la_SOURCES=pfq_fencurses.c
+libpfq_fencurses_la_LDFLAGS=-module
+
+libpfq_fesocket_la_SOURCES=pfq_fesocket.c
+libpfq_fesocket_la_LDFLAGS=-module

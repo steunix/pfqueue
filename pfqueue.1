@@ -1,0 +1,233 @@
+.\"                              hey, Emacs:   -*- nroff -*-
+.\" pfqueue is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; see the file COPYING.  If not, write to
+.\" the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH PFQUEUE 1 "November 19, 2009"
+.SH NAME
+pfqueue \- A queue realtime scanner for MTA
+.SH SYNOPSIS
+.B pfqueue
+.RI [ \-ehvn ]\ [ \-b\ postfix1|postfix2|exim ]\ [ \-q\ queue# ]\ [ \-m\ maxmsg ]
+.RI [ \-s\ seconds ]\ [ \-l\ seconds ]\ [ \-B\ backends_path ]
+.RI [ \-p\ executables_path ]\ [ \-c\ config_path ]\ [ \-d\ seconds ]
+
+.SH DESCRIPTION
+\fBpfqueue\fP is a simple console tool for managing MTA (Mail Transfer Agent)
+message queues. It handles queues through 'backends', libraries that interact 
+with the MTA, and displays informations through a console, ncurses based 'frontend'.
+.br
+Currently, pfqueue has backends for Postfix (both 1.x and 2.x) and Exim (both
+version 3 and 4). 
+
+.SH EXIT STATUS
+pfqueue returns 0 if everything goes fine, or:
+.TP
+.B -1 if pfqueue library cannot be initialized
+.TP
+.B -2 if frontend cannot be initialized
+.TP
+.B -3 if you are not root
+.TP
+.B -4 if pfqueue library cannot be started
+
+.SH OPTIONS
+\fBpfqueue\fP accepts the following options, which are common to any backend:
+.TP
+.B -B backends_path
+Tell pfqueue where backends are located. They should be automatically found,
+since your installation should have placed them in a standard lib dir. If not
+so, use this option to force it.
+.TP
+.B -b backend
+Load a given backend. It can be \fBautodetect\fP, \fBpostfix1\fP, \fBpostfix2\fP
+or \fBexim\fP. Backends are libraries named pfq_backendname.so, located
+in the installation library path (except for autodetect, which is only a virtual
+backend that will try to guess what kind of MTA is installed on the machine,
+and to load the proper backend).
+.TP
+.B -F frontends_path
+Tell pfqueue where frontends are located, if needed.
+.TP
+.B -f frontend
+Frontend to use. It can be \fBncurses\fP, the default, or \fBsocket\fP.
+.TP
+.B -v
+Show version.
+.TP
+.B -h
+Show usage.
+.TP
+.B -c config
+Use a custom MTA configuration; note that the meaning of 'configuration' may
+vary: for example, postfix needs a directory, exim needs a file.
+.TP
+.B -m max
+Set the maximum number of messages shown in a queue. The default is \fB200\fP.
+.TP
+.B -s seconds
+Set the display autorefresh rate in seconds. Default is \fB1\fP.
+.TP
+.B -e
+Start reading from/to fields from message envelope instead of headers, if the
+backend (and MTA) supports it.
+.TP
+.B -p directory
+Set MTA executables path.
+.TP
+.B -q queue_num
+Start by scanning the queue number queue_num: 1 for deferred, 2 for active, 3 for
+incoming, 4 for hold, whatever the MTA calls them. Some backends may not support
+all of these queues.
+.TP
+.B -l limit
+Make pfqueue limit the time for scanning the queue tree and for retreiving messages
+informations to this number of seconds; time is not that accurate, since blocking
+I/O operations may cause lags, but it shouldn't go too far.
+Obviously, limiting process run time may lead to uncomplete results.
+Use this option just in case pfqueue takes too long in performing operations,
+or you have a very slow machine, or you have very busy queues.
+.TP
+.B -d seconds
+Seconds to wait between queue scans. Default is \fB1\fP.
+.TP
+.B -n
+Toggle colors off; note that use of colors can be toggled also when pfqueue is
+running, with '+' key.
+.TP
+.B -r
+Remote host to connect to. This implies a spfqueue instance running on the
+remote host.
+.SH USAGE
+.PP
+During program run, what you see is a window divided into two sections: the
+upper one is the list of messages found in the current queue, and the lower one is
+a small selection of details for the current message.
+.br
+A number of operation can then be done on a single message, or on
+a bunch of selected messages.
+.TP
+.B UP/DOWN arrow keys
+Move the cursor up/down.
+.TP
+.B HOME/END or g/G
+Move to the top/bottom of the list.
+.TP
+.B 1, 2, 3, 4, 5
+Select queue to show. Every MTA handles queues in its own way, so these are general
+keys that cannot be generically described. For Postfix, they will select
+respectively 'deferred', 'active', 'incoming', 'hold' and 'corrupt' queues. For Exim,
+they will have no effect since the backend (and Exim, really) does not archive
+messages in different queues depending on their status.
+.TP
+.B d
+Delete message.
+.TP
+.B h
+Hold message.
+.TP
+.B l
+Release message.
+.TP
+.B r
+Requeue message.
+.TP
+.B m
+Mark current message: this will "mark" the message as the start of a block, and the 
+following 't' key (see below) will tag all messages between that and the tagged one.
+.TP
+.B t
+Tag/untag message; tagged messages will be shown in \fBbold\fP. To operate on 
+all the tagged messages at once, use ';' key (see below).
+If a mark (see above) is present, all messages between the tagged and the marked
+will be tagged.
+.TP
+.B a
+Tag all messages.
+.TP
+.B u
+Untag all messages.
+.TP
+.B ;
+Make delete/hold/release/requeue actions work on all of the tagged messages at once.
+.TP
+.B :
+Toggle auto-work-on-tagged: when activated, and if there are tagged messages, actions
+will work on tagged indipendently of work-on-tagged status (';' key).
+.TP
+.B e
+Toggle reading from/to fields from envelope or headers, if the backend supports it.
+.TP
+.B s
+Show current message details.
+.TP
+.B /
+Find first message matching a POSIX regexp; the regexp you use can be prefixed by
+one of f:, t:, e:, s: which will limit the search in, respectively, the From, To,
+From-or-To, Subject fields. The default is to search everywhere.
+.TP
+.B n
+Find next message matching last used regexp.
+.TP
+.B p
+Find previous message matching last used regexp.
+.TP
+.B T
+Search and tag messages: all messages matching the regexp will be tagged; the same
+prefixes described in '/' search can be used.
+.TP
+.B c
+Enable/disable confirmation request for action on messages.
+.TP
+.B -
+Toggle queue scanning on/off. Use it when you have a fast changing situation and
+you want to freeze it for further examination. Note that then scanning is disabled,
+the messages you see in the list may have gone away (delivered?) in the meantime.
+.TP
+.B +
+Toggle colors on/off.
+.TP
+.B >
+Increase body window height.
+.TP
+.B <
+Decrease body window height.
+.TP
+.B ,
+Scroll body window up.
+.TP
+.B b
+Show/hide body window.
+.TP
+.B .
+Scroll body window down.
+.TP
+.B B
+Toggle body automatic show on/off.
+.TP
+.B s
+Show body in a new window.
+.TP
+.B S
+Sort queue by from/to/subject. Keep in mind that it may slow down interface, since the
+full queue must be read in order to be sorted.
+.TP
+.B ENTER
+Show body of current message (if automatic show is off): if body window is not
+enabled, it behaves like 's' key.
+.SH AUTHOR
+Stefano Rivoir <s.rivoir@gts.it>
+.SH HISTORY
+pfqueue was originally thought as a dedicated Postfix tool, and actually it has been so up
+to version 0.3.8; since version 0.4.0 it has been extended to use pluggable libraries
+in order to support virtually any kind of MTA.
