@@ -1,4 +1,3 @@
-
 lib_LTLIBRARIES = libpfq_postfix1.la libpfq_postfix2.la libpfq_exim.la libpfq_socket.la
 
 libpfq_postfix1_la_SOURCES=pfq_postfix1.c pfq_backend.h pfq_service.c pfq_service.h
