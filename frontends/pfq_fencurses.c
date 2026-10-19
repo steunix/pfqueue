@@ -481,7 +481,9 @@ void show_cursor() {
 	int i;
 	struct msg_t *msg;
 	
-	buf = (char*)malloc(BUF_SIZE);
+	buf = (char*)malloc(COLS+1);
+	if ( !buf )
+		return;
 
 	// Current row
 	i = msg_at(CURROW);
